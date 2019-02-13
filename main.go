@@ -1,33 +1,26 @@
 package main
 
 import (
-	"strings"
-
 	"github.com/neovim/go-client/nvim/plugin"
 	"github.com/nozo-moto/pomodoro.nvim/command"
 )
-
-func hello(args []string) (string, error) {
-	return "Hello " + strings.Join(args, " "), nil
-}
 
 func main() {
 	pomodoro := command.NewPomodoro()
 	plugin.Main(func(p *plugin.Plugin) error {
 		p.HandleCommand(&plugin.CommandOptions{
-			Name: "PomodoroStart"},
+			Name: "pmdr#Start"},
 			pomodoro.Start,
 		)
 		p.HandleCommand(&plugin.CommandOptions{
-			Name: "PomodoroStop"},
+			Name: "pmdr#Stop"},
 			pomodoro.Stop,
 		)
 		p.HandleCommand(&plugin.CommandOptions{
-			Name: "PomodoroCancel"},
+			Name: "pmdr#Cancel"},
 			pomodoro.Cancel,
 		)
 
-		p.HandleFunction(&plugin.FunctionOptions{Name: "Hello"}, hello)
 		return nil
 	})
 }

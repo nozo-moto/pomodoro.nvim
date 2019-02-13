@@ -2,10 +2,12 @@ package command
 
 import "time"
 
+// pomodoro struct
 type Pomodoro struct {
 	StartTime time.Time
 }
 
+// create instance
 func NewPomodoro() *Pomodoro {
 	p := &Pomodoro{}
 	return p

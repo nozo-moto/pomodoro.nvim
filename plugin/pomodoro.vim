@@ -9,10 +9,9 @@ endfunction
 
 call remote#host#Register('pomodoro.nvim', 'x', function('s:RequirePomodoro'))
 call remote#host#RegisterPlugin('pomodoro.nvim', '0', [
-    \ {'type': 'function', 'name': 'PomodoroStart', 'sync': 1, 'opts': {}},
-    \ {'type': 'function', 'name': 'PomodoroStop', 'sync': 1, 'opts': {}},
-    \ {'type': 'function', 'name': 'PomodoroCancel', 'sync': 1, 'opts': {}},
-    \ {'type': 'function', 'name': 'Hello', 'sync': 1, 'opts': {}},
+    \ {'type': 'function', 'name': 'pmdr#Start', 'sync': 1, 'opts': {}},
+    \ {'type': 'function', 'name': 'pmdr#Stop', 'sync': 1, 'opts': {}},
+    \ {'type': 'function', 'name': 'pmdr#Cancel', 'sync': 1, 'opts': {}},
     \ ])
 
 
