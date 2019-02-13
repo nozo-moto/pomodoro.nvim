@@ -1,6 +1,6 @@
-NAME := pomodoro.nvim
-VERSION := v0.0.1
-GOPATH ?= $(shell go env GOPATH)
+NAME            := pomodoro.nvim
+VERSION         := v0.0.1
+GOPATH          ?= $(shell go env GOPATH)
 XDG_CONFIG_HOME ?= $(shell echo $XDG_CONFIG_HOME)
 
 default:
@@ -11,6 +11,9 @@ default:
 deps:
 	dep ensure
 
+build:
+	go build -ldflags "-w -s" -o bin/$(NAME)
+
 install:
 	make build
 	cp bin/$(NAME) $(GOPATH)/bin/
@@ -18,6 +21,4 @@ install:
 clean:
 	rm -rf bin/* vendor/*
 
-build:
-	go build -ldflags "-w -s" -o bin/$(NAME)
 

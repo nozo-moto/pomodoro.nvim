@@ -11,14 +11,14 @@ func NewPomodoro() *Pomodoro {
 	return p
 }
 
-func (p *Pomodoro) Start() (string, error) {
+func (p *Pomodoro) Start(args []string) (string, error) {
 	return "Start", nil
 }
 
-func (p *Pomodoro) Stop() (string, error) {
+func (p *Pomodoro) Stop(args []string) (string, error) {
 	return "Stop", nil
 }
 
-func (p *Pomodoro) Cancel() (string, error) {
+func (p *Pomodoro) Cancel(args []string) (string, error) {
 	return "Cancel", nil
 }
