@@ -25,6 +25,7 @@ type Pomodoro struct {
 
 func (p *Pomodoro) runtimer(setTime int) {
 	//var isBegin bool
+	p.nowTime = 0
 	go func() {
 		for {
 			select {
