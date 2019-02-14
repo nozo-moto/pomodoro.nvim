@@ -7,12 +7,6 @@ import (
 	"github.com/neovim/go-client/nvim"
 )
 
-const (
-	first = iota
-	working
-	stop
-)
-
 var (
 	notifiactionTime = time.Second * 1
 	pomodoroTime     = time.Minute * 25
@@ -21,7 +15,6 @@ var (
 // Pomodoro struct
 type Pomodoro struct {
 	StartTime            time.Time
-	state                int
 	nowTime              int
 	timeNotificationChan *time.Ticker
 	startChan            chan int
@@ -34,7 +27,7 @@ func (p *Pomodoro) timer(setTime int) error {
 		select {
 		case <-p.timeNotificationChan.C:
 			if isBegin {
-				p.state = int(countTime)
+				p.nowTime = int(countTime)
 				if countTime == setTime {
 					goto L
 				}
@@ -70,13 +63,11 @@ func (p *Pomodoro) Start(v *nvim.Nvim, args []string) (string, error) {
 
 // Stop Pomodoro
 func (p *Pomodoro) Stop(v *nvim.Nvim, args []string) (string, error) {
-	p.state = stop
 	return "Stop", nil
 }
 
 // Cancel Pomodoro
 func (p *Pomodoro) Cancel(v *nvim.Nvim, args []string) (string, error) {
-	p.state = first
 	return "Cancel", nil
 }
 
