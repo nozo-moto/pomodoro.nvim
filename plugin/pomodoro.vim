@@ -5,6 +5,10 @@ if exists('g:loaded_pomodoro')
 endif
 let g:loaded_pomodoro = 1
 
+if !exists('g:pomodoro_rtp')
+  let g:pomodoro_rtp = ''
+endif
+
 let s:save_cpo = &cpo
 set cpo&vim
 
@@ -19,9 +23,6 @@ call remote#host#RegisterPlugin('pomodoro.nvim', '0', [
 \ {'type': 'command', 'name': 'PmdrStatus', 'sync': 1, 'opts': {}},
 \ {'type': 'command', 'name': 'PmdrStop', 'sync': 1, 'opts': {}},
 \ ])
-if !exists('g:pomodoro_rtp')
-  let g:pomodoro_rtp = ''
-endif
 
 let &cpo = s:save_cpo
 unlet s:save_cpo
