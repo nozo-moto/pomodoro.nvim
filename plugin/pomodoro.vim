@@ -12,6 +12,6 @@ call remote#host#RegisterPlugin('pomodoro.nvim', '0', [
     \ {'type': 'function', 'name': 'PmdrStart', 'sync': 0, 'opts': {}},
     \ {'type': 'function', 'name': 'PmdrStop', 'sync': 0, 'opts': {}},
     \ {'type': 'function', 'name': 'PmdrCancel', 'sync': 0, 'opts': {}},
+    \ {'type': 'function', 'name': 'PmdrStatus', 'sync': 0, 'opts': {}},
     \ ])
-
 

@@ -11,6 +11,7 @@ func main() {
 		p.HandleCommand(&plugin.CommandOptions{Name: "PmdrStart"}, pomodoro.Start)
 		p.HandleCommand(&plugin.CommandOptions{Name: "PmdrStop"}, pomodoro.Stop)
 		p.HandleCommand(&plugin.CommandOptions{Name: "PmdrCancel"}, pomodoro.Cancel)
+		p.HandleCommand(&plugin.CommandOptions{Name: "PmdrStatus"}, pomodoro.Status)
 		return nil
 	})
 }

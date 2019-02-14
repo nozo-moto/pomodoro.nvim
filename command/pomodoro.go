@@ -45,3 +45,8 @@ func (p *Pomodoro) Cancel(v *nvim.Nvim, args []string) (string, error) {
 	p.state = first
 	return "Cancel", nil
 }
+
+// Status Pomodoro
+func (p *Pomodoro) Status(v *nvim.Nvim, args []string) (string, error) {
+	return "Status", nil
+}
