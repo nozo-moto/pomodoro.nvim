@@ -17,4 +17,7 @@ install:
 clean:
 	rm -rf bin/* vendor/*
 
+docker-build:
+	docker build -t nozomi0966/circleci_golang1.11_vgo .
+
 
