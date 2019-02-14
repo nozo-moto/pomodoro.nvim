@@ -55,10 +55,7 @@ func (p *Pomodoro) Start(v *nvim.Nvim, args []string) (string, error) {
 		p.StartTime = time.Now()
 	}
 	nowCh := make(chan int)
-	err := p.timer(nowCh, int(pomodoroTime))
-	if err != nil {
-		return "", err
-	}
+	go p.timer(nowCh, int(pomodoroTime))
 
 	p.state = working
 	return "Start", nil
