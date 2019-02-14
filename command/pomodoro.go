@@ -47,7 +47,7 @@ func (p *Pomodoro) runtimer(setTime int) {
 // NewPomodoro is to create instance
 func NewPomodoro() *Pomodoro {
 	return &Pomodoro{
-		timeNotificationChan: time.NewTicker(time.Second * NotifiactionTime),
+		timeNotificationChan: time.NewTicker(NotifiactionTime),
 		startChan:            make(chan int),
 		nowTimeChan:          make(chan time.Duration),
 	}
