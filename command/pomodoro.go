@@ -1,26 +1,47 @@
 package command
 
-import "time"
+import (
+	"time"
 
-// pomodoro struct
+	"github.com/neovim/go-client/nvim"
+)
+
+const (
+	first = iota
+	working
+	stop
+)
+
+// Pomodoro struct
 type Pomodoro struct {
 	StartTime time.Time
+	state     int
 }
 
-// create instance
+// NewPomodoro is to create instance
 func NewPomodoro() *Pomodoro {
 	p := &Pomodoro{}
 	return p
 }
 
-func (p *Pomodoro) Start(args []string) (string, error) {
+// Start Pomodoro
+func (p *Pomodoro) Start(v *nvim.Nvim, args []string) (string, error) {
+	if p.state != stop {
+		p.StartTime = time.Now()
+	}
+
+	p.state = working
 	return "Start", nil
 }
 
-func (p *Pomodoro) Stop(args []string) (string, error) {
+// Stop Pomodoro
+func (p *Pomodoro) Stop(v *nvim.Nvim, args []string) (string, error) {
+	p.state = stop
 	return "Stop", nil
 }
 
-func (p *Pomodoro) Cancel(args []string) (string, error) {
+// Cancel Pomodoro
+func (p *Pomodoro) Cancel(v *nvim.Nvim, args []string) (string, error) {
+	p.state = first
 	return "Cancel", nil
 }
