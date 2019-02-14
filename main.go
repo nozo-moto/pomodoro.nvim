@@ -8,10 +8,10 @@ import (
 func main() {
 	pomodoro := command.NewPomodoro()
 	plugin.Main(func(p *plugin.Plugin) error {
-		p.HandleCommand(&plugin.CommandOptions{Name: "PmdrStart"}, pomodoro.Start)
-		p.HandleCommand(&plugin.CommandOptions{Name: "PmdrStop"}, pomodoro.Stop)
-		p.HandleCommand(&plugin.CommandOptions{Name: "PmdrCancel"}, pomodoro.Cancel)
-		p.HandleCommand(&plugin.CommandOptions{Name: "PmdrStatus"}, pomodoro.Status)
+		p.HandleFunction(&plugin.FunctionOptions{Name: "PmdrStart"}, pomodoro.Start)
+		p.HandleFunction(&plugin.FunctionOptions{Name: "PmdrStop"}, pomodoro.Stop)
+		p.HandleFunction(&plugin.FunctionOptions{Name: "PmdrCancel"}, pomodoro.Cancel)
+		p.HandleFunction(&plugin.FunctionOptions{Name: "PmdrStatus"}, pomodoro.Status)
 
 		return nil
 	})
