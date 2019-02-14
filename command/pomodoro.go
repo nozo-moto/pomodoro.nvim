@@ -21,26 +21,22 @@ type Pomodoro struct {
 }
 
 func (p *Pomodoro) timer(setTime int) error {
-	var countTime int
 	var isBegin bool
 	for {
 		select {
 		case <-p.timeNotificationChan.C:
 			if isBegin {
-				p.nowTime = int(countTime)
-				if countTime == setTime {
-					goto L
+				p.nowTime += int(notifiactionTime)
+				if p.nowTime == setTime {
+					isBegin = false
+					break
 				}
-				countTime += int(notifiactionTime)
 			}
 		case <-p.startChan:
-			countTime = 0
+			p.nowTime = 0
 			isBegin = true
 		}
 	}
-L:
-
-	return nil
 }
 
 // NewPomodoro is to create instance
