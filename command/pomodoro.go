@@ -77,9 +77,8 @@ func (p *Pomodoro) Cancel(v *nvim.Nvim, args []string) (string, error) {
 
 // Status Pomodoro
 func (p *Pomodoro) Status(v *nvim.Nvim, args []string) (string, error) {
-	nowTime := PomodoroTime
 	if p.nowTime == 0 {
-		return fmt.Sprint("Pomodoro", nowTime), nil
+		return fmt.Sprint("Pomodoro"), nil
 	}
 	return getFormatedNowTime(p.nowTime), nil
 }
