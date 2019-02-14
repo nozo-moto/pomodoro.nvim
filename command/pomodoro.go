@@ -27,14 +27,13 @@ type Pomodoro struct {
 	startChan            chan int
 }
 
-func (p *Pomodoro) timer(nowCh chan int, setTime int) error {
+func (p *Pomodoro) timer(setTime int) error {
 	var countTime int
 	var isBegin bool
 	for {
 		select {
 		case <-p.timeNotificationChan.C:
 			if isBegin {
-				nowCh <- int(countTime)
 				p.state = int(countTime)
 				if countTime == setTime {
 					goto L
@@ -59,6 +58,7 @@ func NewPomodoro() *Pomodoro {
 		startChan:            startChan,
 	}
 
+	go p.timer(int(pomodoroTime))
 	return p
 }
 
