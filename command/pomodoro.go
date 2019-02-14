@@ -20,23 +20,30 @@ var (
 
 // Pomodoro struct
 type Pomodoro struct {
-	StartTime time.Time
-	state     int
-	nowTime   int
+	StartTime            time.Time
+	state                int
+	nowTime              int
+	timeNotificationChan *time.Ticker
+	startChan            chan int
 }
 
 func (p *Pomodoro) timer(nowCh chan int, setTime int) error {
-	countTime := 0
-	timeNotification := time.NewTicker(time.Second * notifiactionTime)
+	var countTime int
+	var isBegin bool
 	for {
 		select {
-		case <-timeNotification.C:
-			nowCh <- int(countTime)
-			p.state = int(countTime)
-			if countTime == setTime {
-				goto L
+		case <-p.timeNotificationChan.C:
+			if isBegin {
+				nowCh <- int(countTime)
+				p.state = int(countTime)
+				if countTime == setTime {
+					goto L
+				}
+				countTime += int(notifiactionTime)
 			}
-			countTime += int(notifiactionTime)
+		case <-p.startChan:
+			countTime = 0
+			isBegin = true
 		}
 	}
 L:
@@ -46,19 +53,18 @@ L:
 
 // NewPomodoro is to create instance
 func NewPomodoro() *Pomodoro {
-	p := &Pomodoro{}
+	startChan := make(chan int)
+	p := &Pomodoro{
+		timeNotificationChan: time.NewTicker(time.Second * notifiactionTime),
+		startChan:            startChan,
+	}
+
 	return p
 }
 
 // Start Pomodoro
 func (p *Pomodoro) Start(v *nvim.Nvim, args []string) (string, error) {
-	if p.state != stop {
-		p.StartTime = time.Now()
-	}
-	nowCh := make(chan int)
-	go p.timer(nowCh, int(pomodoroTime))
-
-	p.state = working
+	p.startChan <- 1
 	return "Start", nil
 }
 
