@@ -9,15 +9,15 @@ func main() {
 	pomodoro := command.NewPomodoro()
 	plugin.Main(func(p *plugin.Plugin) error {
 		p.HandleCommand(&plugin.CommandOptions{
-			Name: "pmdr#Start"},
+			Name: "pmdrStart"},
 			pomodoro.Start,
 		)
 		p.HandleCommand(&plugin.CommandOptions{
-			Name: "pmdr#Stop"},
+			Name: "pmdrStop"},
 			pomodoro.Stop,
 		)
 		p.HandleCommand(&plugin.CommandOptions{
-			Name: "pmdr#Cancel"},
+			Name: "pmdrCancel"},
 			pomodoro.Cancel,
 		)
 
