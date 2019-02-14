@@ -29,10 +29,9 @@ func (p *Pomodoro) runtimer(setTime int) {
 			select {
 			case <-p.timeNotificationChan.C:
 				if isBegin {
-					p.nowTime += int(NotifiactionTime)
+					p.nowTime += int(NotifiactionTime.Seconds())
 					if p.nowTime == setTime {
 						isBegin = false
-						break
 					}
 				}
 			case <-p.startChan:
@@ -45,17 +44,15 @@ func (p *Pomodoro) runtimer(setTime int) {
 
 // NewPomodoro is to create instance
 func NewPomodoro(timeNotificationChan *time.Ticker, startChan chan int) *Pomodoro {
-	p := &Pomodoro{
+	return &Pomodoro{
 		timeNotificationChan: timeNotificationChan,
 		startChan:            startChan,
 	}
-
-	return p
 }
 
 // Init Pomodoro
 func (p *Pomodoro) Init() error {
-	p.runtimer(int(PomodoroTime))
+	p.runtimer(int(PomodoroTime.Seconds()))
 	return nil
 }
 
@@ -81,7 +78,7 @@ func (p *Pomodoro) Status(v *nvim.Nvim, args []string) (string, error) {
 }
 
 func getFormatedNowTime(nowTime int) string {
-	min := nowTime % 60
-	sec := nowTime - min
+	min := nowTime / 60
+	sec := nowTime - min*60
 	return fmt.Sprint(min, ":", sec)
 }
