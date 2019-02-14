@@ -18,10 +18,10 @@ endfunction
 
 call remote#host#Register('pomodoro.nvim', '0', function('s:RequirePomodoro'))
 call remote#host#RegisterPlugin('pomodoro.nvim', '0', [
-\ {'type': 'command', 'name': 'PmdrCancel', 'sync': 1, 'opts': {}},
-\ {'type': 'command', 'name': 'PmdrStart', 'sync': 1, 'opts': {}},
-\ {'type': 'command', 'name': 'PmdrStatus', 'sync': 1, 'opts': {}},
-\ {'type': 'command', 'name': 'PmdrStop', 'sync': 1, 'opts': {}},
+\ {'type': 'function', 'name': 'PmdrCancel', 'sync': 1, 'opts': {}},
+\ {'type': 'function', 'name': 'PmdrStart', 'sync': 1, 'opts': {}},
+\ {'type': 'function', 'name': 'PmdrStatus', 'sync': 1, 'opts': {}},
+\ {'type': 'function', 'name': 'PmdrStop', 'sync': 1, 'opts': {}},
 \ ])
 
 let &cpo = s:save_cpo
