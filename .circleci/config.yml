@@ -22,4 +22,4 @@ jobs:
             - /go/pkg/mod/cache
       - run: 
           name: Run Build
-          commad: make
+          command: make
