@@ -9,17 +9,17 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-        name: Restore Cache
-        keys:
+          name: Restore Cache
+          keys:
           - mod-{{ .Environment.COMMON_CACHE_KEY }}-{{ checksum "go.mod" }}
       - run:
-        name: Vendoring
-        command: go mod download
+          name: Vendoring
+          command: go mod download
       - save_cache:
-        name: Save Cache
-        key: mod-{{ .Environment.COMMON_CACHE_KEY }}-{{ checksum "go.mod" }}
-        paths:
-          - /go/pkg/mod/cache
+          name: Save Cache
+          key: mod-{{ .Environment.COMMON_CACHE_KEY }}-{{ checksum "go.mod" }}
+          paths:
+            - /go/pkg/mod/cache
       - run: 
           name: Run Build
           commad: make
