@@ -54,7 +54,7 @@ func NewPomodoro(timeNotificationChan *time.Ticker, startChan chan int) *Pomodor
 }
 
 // Init Pomodoro
-func (p *Pomodoro) Init(timeNotificationChan *time.Ticker, startChan chan int) error {
+func (p *Pomodoro) Init() error {
 	p.runtimer(int(PomodoroTime))
 	return nil
 }
