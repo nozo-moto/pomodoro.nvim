@@ -81,7 +81,7 @@ func (p *Pomodoro) Status(v *nvim.Nvim, args []string) (string, error) {
 	if p.nowTime == 0 {
 		return fmt.Sprint("Pomodoro"), nil
 	}
-	return getFormatedNowTime(p.nowTime), nil
+	return fmt.Sprint(p.nowTime), nil
 }
 
 func getFormatedNowTime(nowTime int) string {
