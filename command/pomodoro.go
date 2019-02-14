@@ -5,7 +5,6 @@ import (
 	"time"
 
 	"github.com/neovim/go-client/nvim"
-	"github.com/nozo-moto/pomodoro.nvim/command"
 )
 
 var (
@@ -48,7 +47,7 @@ func (p *Pomodoro) runtimer(setTime int) {
 // NewPomodoro is to create instance
 func NewPomodoro() *Pomodoro {
 	return &Pomodoro{
-		timeNotificationChan: time.NewTicker(time.Second * command.NotifiactionTime),
+		timeNotificationChan: time.NewTicker(time.Second * NotifiactionTime),
 		startChan:            make(chan int),
 		nowTimeChan:          make(chan time.Duration),
 	}
