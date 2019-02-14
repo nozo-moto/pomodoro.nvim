@@ -8,7 +8,6 @@ let g:loaded_pomodoro = 1
 let s:save_cpo = &cpo
 set cpo&vim
 
-
 function! s:RequirePomodoro(host) abort
   return jobstart(['pomodoro.nvim'], {'rpc': v:true})
 endfunction
