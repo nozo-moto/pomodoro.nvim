@@ -8,19 +8,9 @@ import (
 func main() {
 	pomodoro := command.NewPomodoro()
 	plugin.Main(func(p *plugin.Plugin) error {
-		p.HandleCommand(&plugin.CommandOptions{
-			Name: "pmdrStart"},
-			pomodoro.Start,
-		)
-		p.HandleCommand(&plugin.CommandOptions{
-			Name: "pmdrStop"},
-			pomodoro.Stop,
-		)
-		p.HandleCommand(&plugin.CommandOptions{
-			Name: "pmdrCancel"},
-			pomodoro.Cancel,
-		)
-
+		p.HandleCommand(&plugin.CommandOptions{Name: "PmdrStart"}, pomodoro.Start)
+		p.HandleCommand(&plugin.CommandOptions{Name: "PmdrStop"}, pomodoro.Stop)
+		p.HandleCommand(&plugin.CommandOptions{Name: "PmdrCancel"}, pomodoro.Cancel)
 		return nil
 	})
 }
