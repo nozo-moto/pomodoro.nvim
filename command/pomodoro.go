@@ -32,6 +32,7 @@ func (p *Pomodoro) timer(nowCh chan int, setTime int) error {
 		select {
 		case <-timeNotification.C:
 			nowCh <- int(countTime)
+			p.state = int(countTime)
 			if countTime == setTime {
 				goto L
 			}
