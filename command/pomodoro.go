@@ -16,20 +16,20 @@ var (
 
 // Pomodoro struct
 type Pomodoro struct {
-	StartTime            time.Time
-	nowTime              int
-	timeNotificationChan *time.Ticker
-	startChan            chan int
-	nowTimeChan          chan time.Duration
-	isBegin              bool
+	StartTime   time.Time
+	nowTime     int
+	startChan   chan int
+	nowTimeChan chan time.Duration
+	isBegin     bool
 }
 
 func (p *Pomodoro) runtimer(setTime int) {
+	timer := time.NewTimer(time.Second * 1)
 	p.nowTime = 0
 	go func() {
 		for {
 			select {
-			case <-p.timeNotificationChan.C:
+			case <-timer.C:
 				if p.isBegin {
 					p.nowTime++
 					p.nowTimeChan <- NotifiactionTime
@@ -48,9 +48,8 @@ func (p *Pomodoro) runtimer(setTime int) {
 // NewPomodoro is to create instance
 func NewPomodoro() *Pomodoro {
 	return &Pomodoro{
-		timeNotificationChan: time.NewTicker(NotifiactionTime),
-		startChan:            make(chan int),
-		nowTimeChan:          make(chan time.Duration),
+		startChan:   make(chan int),
+		nowTimeChan: make(chan time.Duration),
 	}
 }
 
