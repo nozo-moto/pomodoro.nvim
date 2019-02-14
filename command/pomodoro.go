@@ -21,25 +21,25 @@ type Pomodoro struct {
 	timeNotificationChan *time.Ticker
 	startChan            chan int
 	nowTimeChan          chan time.Duration
+	isBegin              bool
 }
 
 func (p *Pomodoro) runtimer(setTime int) {
-	//var isBegin bool
 	p.nowTime = 0
 	go func() {
 		for {
 			select {
 			case <-p.timeNotificationChan.C:
-				//if isBegin {
-				p.nowTime += 1
-				p.nowTimeChan <- NotifiactionTime
-				if p.nowTime == setTime {
-					//				isBegin = false
+				if p.isBegin {
+					p.nowTime++
+					p.nowTimeChan <- NotifiactionTime
+					if p.nowTime == setTime {
+						p.isBegin = false
+					}
 				}
-				//}
 			case <-p.startChan:
 				p.nowTime = 0
-				//			isBegin = true
+				p.isBegin = true
 			}
 		}
 	}()
