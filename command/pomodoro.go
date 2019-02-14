@@ -31,7 +31,7 @@ func (p *Pomodoro) runtimer(setTime int) {
 			select {
 			case <-p.timeNotificationChan.C:
 				//if isBegin {
-				p.nowTime += int(NotifiactionTime.Seconds())
+				p.nowTime += 1
 				p.nowTimeChan <- NotifiactionTime
 				if p.nowTime == setTime {
 					//				isBegin = false
