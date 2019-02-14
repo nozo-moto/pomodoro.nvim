@@ -26,7 +26,7 @@ call remote#host#RegisterPlugin('pomodoro.nvim', '0', [
 \ ])
 
 
-call PmdrInit
+call PmdrInit()
 
 let &cpo = s:save_cpo
 unlet s:save_cpo
