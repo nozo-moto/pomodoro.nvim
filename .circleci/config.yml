@@ -2,8 +2,24 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/golang:1.9
+      - image: circleci/golang:1.11.0
+        environment:
+          GO111MODULE: "on"
     working_directory: /go/src/github.com/nozo-moto/pomodoro.nvim
     steps:
       - checkout
-      - run: make
+      - restore_cache:
+        name: Restore Cache
+        keys:
+          - mod-{{ .Environment.COMMON_CACHE_KEY }}-{{ checksum "go.mod" }}
+      - run:
+        name: Vendoring
+        command: go mod download
+      - save_cache:
+        name: Save Cache
+        key: mod-{{ .Environment.COMMON_CACHE_KEY }}-{{ checksum "go.mod" }}
+        paths:
+          - /go/pkg/mod/cache
+      - run: 
+          name: Run Build
+          commad: make
