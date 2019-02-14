@@ -1,6 +1,7 @@
 package command
 
 import (
+	"fmt"
 	"time"
 
 	"github.com/neovim/go-client/nvim"
@@ -12,10 +13,34 @@ const (
 	stop
 )
 
+var (
+	notifiactionTime = time.Second * 1
+	pomodoroTime     = time.Minute * 25
+)
+
 // Pomodoro struct
 type Pomodoro struct {
 	StartTime time.Time
 	state     int
+	nowTime   int
+}
+
+func (p *Pomodoro) timer(nowCh chan int, setTime int) error {
+	countTime := 0
+	timeNotification := time.NewTicker(time.Second * notifiactionTime)
+	for {
+		select {
+		case <-timeNotification.C:
+			nowCh <- int(countTime)
+			if countTime == setTime {
+				goto L
+			}
+			countTime += int(notifiactionTime)
+		}
+	}
+L:
+
+	return nil
 }
 
 // NewPomodoro is to create instance
@@ -28,6 +53,11 @@ func NewPomodoro() *Pomodoro {
 func (p *Pomodoro) Start(v *nvim.Nvim, args []string) (string, error) {
 	if p.state != stop {
 		p.StartTime = time.Now()
+	}
+	nowCh := make(chan int)
+	err := p.timer(nowCh, int(pomodoroTime))
+	if err != nil {
+		return "", err
 	}
 
 	p.state = working
@@ -48,5 +78,11 @@ func (p *Pomodoro) Cancel(v *nvim.Nvim, args []string) (string, error) {
 
 // Status Pomodoro
 func (p *Pomodoro) Status(v *nvim.Nvim, args []string) (string, error) {
-	return "Status", nil
+	return getFormatedNowTime(p.nowTime), nil
+}
+
+func getFormatedNowTime(nowTime int) string {
+	min := nowTime % 60
+	sec := nowTime - min
+	return fmt.Sprint(min, ":", sec)
 }
