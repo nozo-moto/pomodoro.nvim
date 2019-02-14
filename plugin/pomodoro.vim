@@ -1,7 +1,13 @@
+scriptencoding utf-8
+
 if exists('g:loaded_pomodoro')
   finish
 endif
 let g:loaded_pomodoro = 1
+
+let s:save_cpo = &cpo
+set cpo&vim
+
 
 function! s:RequirePomodoro(host) abort
   return jobstart(['pomodoro.nvim'], {'rpc': v:true})
@@ -15,3 +21,6 @@ call remote#host#RegisterPlugin('pomodoro.nvim', '0', [
     \ {'type': 'function', 'name': 'PmdrStatus', 'sync': 0, 'opts': {}},
     \ ])
 
+
+let &cpo = s:save_cpo
+unlet s:save_cpo
