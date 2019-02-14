@@ -29,10 +29,10 @@ func (p *Pomodoro) runtimer(setTime int) {
 	go func() {
 		for {
 			select {
-			case <-p.startChan:
+	case <-p.startChan:
 				p.nowTime = 0
 				p.isBegin = true
-
+			}
 			case <-timer.C:
 				if p.isBegin {
 					p.nowTime++
@@ -41,7 +41,7 @@ func (p *Pomodoro) runtimer(setTime int) {
 						p.isBegin = false
 					}
 				}
-			}
+		
 		}
 	}()
 }
