@@ -33,12 +33,12 @@ func (p *Pomodoro) runtimer(setTime int) {
 				p.nowTime += int(NotifiactionTime.Seconds())
 				p.nowTimeChan <- NotifiactionTime
 				if p.nowTime == setTime {
-					isBegin = false
+					//				isBegin = false
 				}
 				//}
 			case <-p.startChan:
 				p.nowTime = 0
-				isBegin = true
+				//			isBegin = true
 			}
 		}
 	}()
