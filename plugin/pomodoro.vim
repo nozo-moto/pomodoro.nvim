@@ -26,3 +26,9 @@ endif
 
 let &cpo = s:save_cpo
 unlet s:save_cpo
+call remote#host#RegisterPlugin('./bin/pomodoro.nvim', '0', [
+\ {'type': 'command', 'name': 'PmdrCancel', 'sync': 1, 'opts': {}},
+\ {'type': 'command', 'name': 'PmdrStart', 'sync': 1, 'opts': {}},
+\ {'type': 'command', 'name': 'PmdrStatus', 'sync': 1, 'opts': {}},
+\ {'type': 'command', 'name': 'PmdrStop', 'sync': 1, 'opts': {}},
+\ ])
