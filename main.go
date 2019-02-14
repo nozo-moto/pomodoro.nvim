@@ -1,12 +1,19 @@
 package main
 
 import (
+	"time"
+
 	"github.com/neovim/go-client/nvim/plugin"
 	"github.com/nozo-moto/pomodoro.nvim/command"
 )
 
 func main() {
-	pomodoro := command.NewPomodoro()
+	startChan := make(chan int)
+	pomodoro := command.NewPomodoro(
+		time.NewTicker(time.Second*command.NotifiactionTime),
+		startChan,
+	)
+	go pomodoro.Timer(int(command.PomodoroTime))
 	plugin.Main(func(p *plugin.Plugin) error {
 		p.HandleFunction(&plugin.FunctionOptions{Name: "PmdrStart"}, pomodoro.Start)
 		p.HandleFunction(&plugin.FunctionOptions{Name: "PmdrStop"}, pomodoro.Stop)

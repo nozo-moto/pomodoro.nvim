@@ -8,8 +8,10 @@ import (
 )
 
 var (
-	notifiactionTime = time.Second * 1
-	pomodoroTime     = time.Minute * 25
+	// NotifiactionTime is hogehoge
+	NotifiactionTime = time.Second * 1
+	// PomodoroTime is setTime
+	PomodoroTime = time.Minute * 25
 )
 
 // Pomodoro struct
@@ -20,13 +22,14 @@ type Pomodoro struct {
 	startChan            chan int
 }
 
-func (p *Pomodoro) timer(setTime int) error {
+// Timer is Pomodoro Timer
+func (p *Pomodoro) Timer(setTime int) error {
 	var isBegin bool
 	for {
 		select {
 		case <-p.timeNotificationChan.C:
 			if isBegin {
-				p.nowTime += int(notifiactionTime)
+				p.nowTime += int(NotifiactionTime)
 				if p.nowTime == setTime {
 					isBegin = false
 					break
@@ -40,14 +43,12 @@ func (p *Pomodoro) timer(setTime int) error {
 }
 
 // NewPomodoro is to create instance
-func NewPomodoro() *Pomodoro {
-	startChan := make(chan int)
+func NewPomodoro(timeNotificationChan *time.Ticker, startChan chan int) *Pomodoro {
 	p := &Pomodoro{
-		timeNotificationChan: time.NewTicker(time.Second * notifiactionTime),
+		timeNotificationChan: timeNotificationChan,
 		startChan:            startChan,
 	}
 
-	go p.timer(int(pomodoroTime))
 	return p
 }
 
