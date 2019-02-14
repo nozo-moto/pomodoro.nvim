@@ -22,7 +22,11 @@ call remote#host#RegisterPlugin('pomodoro.nvim', '0', [
 \ {'type': 'function', 'name': 'PmdrStart', 'sync': 1, 'opts': {}},
 \ {'type': 'function', 'name': 'PmdrStatus', 'sync': 1, 'opts': {}},
 \ {'type': 'function', 'name': 'PmdrStop', 'sync': 1, 'opts': {}},
+\ {'type': 'function', 'name': 'PmdrInit', 'sync': 1, 'opts': {}},
 \ ])
+
+
+call PmdrInit
 
 let &cpo = s:save_cpo
 unlet s:save_cpo
